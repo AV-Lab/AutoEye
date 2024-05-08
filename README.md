@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="50%" src="https://github.com/AV-Lab/AutoEye/assets/133870502/1b8ab11b-cfa6-4965-a9db-dbd24524a207" alt="AutoEye" />
+  <img width="40%" src="https://github.com/AV-Lab/AutoEye/assets/133870502/4e7f2c5f-6a9b-4233-9f03-0c56f5f34bbc" alt="AutoEye" />
 </p>
 
 # AutoEye
@@ -25,6 +25,7 @@ We welcome contributions from the community to help us improve AutoEye and make 
 We value your input and look forward to collaborating with you to make AutoEye the best it can be.
 
 ## License
+
 AutoEye is licensed under the MIT License. See [LICENSE](LICENSE) for more information.
 
 ## Support
