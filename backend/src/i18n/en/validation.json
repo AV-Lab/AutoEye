@@ -1,0 +1,9 @@
+{
+  "FIELD_EMPTY": "The {property} is required.",
+  "FIELD_INVALID": "The {property} is invalid.",
+  "ALREADY_EXISTS": "A {entity} with that {property} already exists.",
+  "USER_NOT_FOUND": "There is no user record corresponding to the provided identifier.",
+  "STRONG_PASSWORD": "The password must be at least 8 characters long, contain at least one number and have a mixture of uppercase and lowercase letters.",
+  "MIN_LENGTH": "The {property} must be longer than or equal to {constraints.0} characters.",
+  "MAX_LENGTH": "The {property} must be shorter than or equal to {constraints.0} characters."
+}

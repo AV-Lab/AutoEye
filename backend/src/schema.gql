@@ -1,0 +1,224 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AuthInput {
+  """Password"""
+  password: String!
+
+  """Username"""
+  username: String!
+}
+
+type AuthPayload {
+  accessToken: String!
+  user: UserPayload!
+}
+
+type ChannelPayload {
+  """Create Date"""
+  createdAt: DateTime!
+
+  """Delete Date"""
+  deletedAt: DateTime
+
+  """ID"""
+  id: ID!
+
+  """Name"""
+  name: String!
+
+  """Order"""
+  order: String
+
+  """Update Date"""
+  updatedAt: DateTime!
+}
+
+type ClientPayload {
+  """Connection Options"""
+  connectionOptions: String!
+
+  """Create Date"""
+  createdAt: DateTime!
+
+  """Delete Date"""
+  deletedAt: DateTime
+
+  """ID"""
+  id: ID!
+
+  """Name"""
+  name: String!
+
+  """Update Date"""
+  updatedAt: DateTime!
+}
+
+input CreateChannelInput {
+  """Name"""
+  name: String!
+
+  """Order"""
+  order: Int!
+}
+
+input CreateClientInput {
+  """Connection Options"""
+  connectionOptions: String!
+
+  """Name"""
+  name: String!
+}
+
+input CreateUserInput {
+  """Email Address"""
+  email: String!
+
+  """First Name"""
+  firstName: String!
+
+  """Last Name"""
+  lastName: String!
+
+  """Password"""
+  password: String!
+
+  """Username"""
+  username: String!
+}
+
+input CreateVehicleInput {
+  """Channels"""
+  channels: [String!]
+
+  """Name"""
+  name: String!
+
+  """Order"""
+  order: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  authenticate(authInput: AuthInput!): AuthPayload!
+  createChannel(createChannelInput: CreateChannelInput!): ChannelPayload!
+  createClient(createClientInput: CreateClientInput!): ClientPayload!
+  createUser(createUserInput: CreateUserInput!): UserPayload!
+  createVehicle(createVehicleInput: CreateVehicleInput!): VehiclePayload!
+  deleteChannel(channelId: String!): Boolean!
+  deleteChannels(channelIds: [String!]!): Boolean!
+  deleteUser(id: String!): String!
+  deleteVehicle(vehicleId: String!): Boolean!
+  deleteVehicles(vehicleIds: [String!]!): Boolean!
+  updateChannel(updateChannelInput: UpdateChannelInput!): ChannelPayload!
+  updateUser(updateUserInput: UpdateUserInput!): UserPayload!
+  updateVehicle(updateVehicleInput: UpdateVehicleInput!): VehiclePayload!
+}
+
+type Query {
+  channels: [ChannelPayload!]!
+  clients: [ClientPayload!]!
+  health: Boolean!
+  user(id: ID!): UserPayload!
+  users: [UserPayload!]!
+  vehicles: [VehiclePayload!]!
+}
+
+input UpdateChannelInput {
+  """ID"""
+  id: String!
+
+  """Name"""
+  name: String
+
+  """Order"""
+  order: Int
+}
+
+input UpdateUserInput {
+  """Email Address"""
+  email: String
+
+  """First Name"""
+  firstName: String
+
+  """ID"""
+  id: String!
+
+  """Last Name"""
+  lastName: String
+
+  """Password"""
+  password: String
+
+  """Username"""
+  username: String
+}
+
+input UpdateVehicleInput {
+  """Channels"""
+  channels: [String!]
+
+  """ID"""
+  id: String!
+
+  """Name"""
+  name: String
+
+  """Order"""
+  order: Int
+}
+
+type UserPayload {
+  """Create Date"""
+  createdAt: DateTime!
+
+  """Delete Date"""
+  deletedAt: DateTime
+
+  """Email Address"""
+  email: String!
+
+  """First Name"""
+  firstName: String!
+
+  """ID"""
+  id: ID!
+
+  """Last Name"""
+  lastName: String!
+
+  """Update Date"""
+  updatedAt: DateTime!
+
+  """Username"""
+  username: String!
+}
+
+type VehiclePayload {
+  """Channels"""
+  channels: [ChannelPayload!]!
+
+  """Create Date"""
+  createdAt: DateTime!
+
+  """Delete Date"""
+  deletedAt: DateTime
+
+  """ID"""
+  id: ID!
+
+  """Name"""
+  name: String!
+
+  """Order"""
+  order: String
+
+  """Update Date"""
+  updatedAt: DateTime!
+}

@@ -1,0 +1,25 @@
+{
+    "root": [
+        {
+            "key": "0",
+            "label": "Gen0",
+            "data": "Documents Folder",
+            "icon": "pi pi-fw pi-folder",
+            "children": [
+                {
+                    "key": "0-1",
+                    "label": "AV1-G0",
+                    "data": "Home Folder",
+                    "icon": "pi pi-fw pi-car"
+                }
+            ]
+        },
+        {
+            "key": "1",
+            "label": "Gen2",
+            "data": "Events Folder",
+            "icon": "pi pi-fw pi-folder",
+            "children": []
+        }
+    ]
+}
