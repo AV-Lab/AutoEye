@@ -1,5 +1,9 @@
 <p align="center">
-  <img width="40%" src="https://github.com/AV-Lab/AutoEye/assets/133870502/4e7f2c5f-6a9b-4233-9f03-0c56f5f34bbc" alt="AutoEye" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/AV-Lab/AutoEye/assets/133870502/f323fb15-4ac1-42f7-96ba-8ea183e2302e">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/AV-Lab/AutoEye/assets/133870502/da3118d0-f84a-414c-a32f-752467f30eb5">
+    <img alt="AutoEye Logo" src="https://github.com/AV-Lab/AutoEye/assets/133870502/da3118d0-f84a-414c-a32f-752467f30eb5">
+  </picture>
 </p>
 
 # AutoEye
