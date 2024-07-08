@@ -16,13 +16,13 @@ import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { JwtGuard } from './auth/guards/jwt.guard';
+import { ChannelsModule } from './channels/channels.module';
 import { errorHandler } from './common/handlers/error.handler';
 import { IsUniqueConstraint } from './common/validators/is-unique.validator';
 import configuration from './config/configuration';
 import { TypeOrmConfigService } from './config/database.config';
+import { MqttModule } from './mqtt/mqtt.module';
 import { UsersModule } from './users/users.module';
-import { ClientsModule } from './clients/clients.module';
-import { ChannelsModule } from './channels/channels.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 
 @Module({
@@ -62,9 +62,9 @@ import { VehiclesModule } from './vehicles/vehicles.module';
     }),
     UsersModule,
     AuthModule,
-    ClientsModule,
     ChannelsModule,
     VehiclesModule,
+    MqttModule,
   ],
   controllers: [AppController],
   providers: [

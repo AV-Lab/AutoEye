@@ -17,6 +17,26 @@ export async function getChannels() {
     });
 }
 
+export async function getChannelsWithVehicles() {
+    const GET_ALL_WITH_VEHICLES_QUERY = gql`
+        query channels {
+            channels {
+                id
+                name
+                order
+                vehicles {
+                    id
+                    name
+                }
+            }
+        }
+    `;
+
+    return await apolloClient.query({ query: GET_ALL_WITH_VEHICLES_QUERY, fetchPolicy: 'no-cache' }).then(({ data }) => {
+        return data.channels;
+    });
+}
+
 export async function createChannel(name, order) {
     const CREATE_MUTATION = gql`
         mutation createChannel($createChannelInput: CreateChannelInput!) {

@@ -1,5 +1,6 @@
 import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
 import { GraphQLID, GraphQLString } from 'graphql';
+import { VehiclePayload } from 'src/vehicles/dto/vehicle.payload';
 
 @ObjectType()
 export class ChannelPayload {
@@ -8,6 +9,9 @@ export class ChannelPayload {
 
   @Field(() => GraphQLString, { description: 'Name' })
   name!: String;
+
+  @Field(() => [VehiclePayload], { description: 'Vehicle', nullable: true })
+  vehicles: VehiclePayload[];
 
   @Field(() => GraphQLString, { description: 'Order', nullable: true })
   order!: String;

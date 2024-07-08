@@ -21,7 +21,7 @@ export class ChannelsService {
 
   async findAll() {
     return await this.channelsRepository.find({
-      where: { deletedAt: IsNull() },
+      where: { deletedAt: IsNull() }, relations: ['vehicles']
     });
   }
 
