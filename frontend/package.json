@@ -1,0 +1,138 @@
+{
+  "name": "autoeye-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:e2e": "cp -n example.env.local .env.local && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prepare": "is-ci || husky",
+    "release": "release-it",
+    "generate:resource": "hygen generate resource",
+    "postgenerate:resource": "npm run lint -- --fix",
+    "sb": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@faker-js/faker": "^8.4.1",
+    "@fontsource/roboto": "^5.0.14",
+    "@hookform/resolvers": "^3.9.0",
+    "@mui/icons-material": "5.16.7",
+    "@mui/material": "5.16.7",
+    "@mui/x-date-pickers": "7.12.1",
+    "@react-oauth/google": "^0.12.1",
+    "@tanstack/react-query": "^5.51.23",
+    "@tanstack/react-query-devtools": "^5.51.23",
+    "@types/node": "20.14.15",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "accept-language": "^3.0.20",
+    "date-fns": "^3.6.0",
+    "dotenv": "^16.4.5",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.5",
+    "i18next": "23.12.7",
+    "i18next-browser-languagedetector": "^8.0.0",
+    "i18next-resources-to-backend": "^1.2.1",
+    "imap": "^0.8.19",
+    "js-cookie": "^3.0.5",
+    "mailparser": "^3.7.1",
+    "nanoid": "^5.0.7",
+    "next": "14.2.5",
+    "notistack": "^3.0.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-dropzone": "^14.2.3",
+    "react-hook-form": "^7.52.2",
+    "react-i18next": "^15.0.1",
+    "react-virtuoso": "4.10.1",
+    "typescript": "5.5.4",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^1.6.1",
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@playwright/test": "^1.46.0",
+    "@release-it/conventional-changelog": "^8.0.1",
+    "@storybook/addon-essentials": "^8.2.9",
+    "@storybook/addon-interactions": "^8.2.9",
+    "@storybook/addon-links": "^8.2.9",
+    "@storybook/addon-onboarding": "^8.2.9",
+    "@storybook/blocks": "^8.2.9",
+    "@storybook/nextjs": "^8.2.9",
+    "@storybook/react": "^8.2.9",
+    "@storybook/test": "^8.2.9",
+    "@types/imap": "^0.8.40",
+    "@types/js-cookie": "^3.0.6",
+    "@types/mailparser": "^3.4.4",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-storybook": "^0.8.0",
+    "husky": "^9.1.4",
+    "hygen": "^6.2.11",
+    "is-ci": "^3.0.1",
+    "prettier": "^3.3.3",
+    "release-it": "^17.6.0",
+    "storybook": "^8.2.9"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": false
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "infile": "CHANGELOG.md",
+        "preset": {
+          "name": "conventionalcommits",
+          "types": [
+            {
+              "type": "feat",
+              "section": "Features"
+            },
+            {
+              "type": "fix",
+              "section": "Bug Fixes"
+            },
+            {
+              "type": "perf",
+              "section": "Performance Improvements"
+            },
+            {
+              "type": "revert",
+              "section": "Reverts"
+            },
+            {
+              "type": "docs",
+              "section": "Documentation"
+            },
+            {
+              "type": "refactor",
+              "section": "Code Refactoring"
+            },
+            {
+              "type": "test",
+              "section": "Tests"
+            },
+            {
+              "type": "ci",
+              "section": "Continuous Integration"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
