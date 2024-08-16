@@ -104,17 +104,6 @@ async function PrivacyPolicy({ params }: Props) {
           {t("usage_data_description")}
         </ListItem>
         <ListItem sx={{ display: "list-item" }}>
-          <strong>{t("website_title")}</strong>
-          {t("website_description")}
-          <MuiLink
-            target="_blank"
-            rel="external noopener noreferrer"
-            href="https://react-boilerplate-coral.vercel.app/"
-          >
-            https://react-boilerplate-coral.vercel.app
-          </MuiLink>
-        </ListItem>
-        <ListItem sx={{ display: "list-item" }}>
           <strong>{t("you_title")}</strong>
           {t("you_description")}
         </ListItem>
@@ -476,7 +465,7 @@ async function PrivacyPolicy({ params }: Props) {
         {t("changes_to_privacy_policy_paragraph3")}
       </Typography>
 
-      <Typography
+      {/* <Typography
         component="h2"
         variant="h3"
         letterSpacing="-0.02em"
@@ -541,7 +530,7 @@ async function PrivacyPolicy({ params }: Props) {
             channel
           </MuiLink>
         </ListItem>
-      </List>
+      </List> */}
     </Container>
   );
 }

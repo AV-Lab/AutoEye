@@ -44,16 +44,13 @@ export default async function Home({ params }: Props) {
                   key="1"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://github.com/brocoders/extensive-react-boilerplate/blob/main/docs/README.md"
+                  href="https://github.com/Syed-Abbas-Hussain/AutoEye"
                 >
                   {}
                 </MuiLink>,
               ]}
             />
           </Typography>
-        </Grid>
-        <Grid item sx={{ mx: "auto" }}>
-          <MuiLink href="/privacy-policy">Privacy Policy</MuiLink>
         </Grid>
       </Grid>
     </Container>

@@ -16,11 +16,14 @@ import useAuth from "@/services/auth/use-auth";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useTranslation } from "@/services/i18n/client";
-import Link from "@/components/link";
 import { RoleEnum } from "@/services/api/types/role";
 import Divider from "@mui/material/Divider";
 import ThemeSwitchButton from "@/components/switch-theme-button";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
+
+import logo from "../../public/logo/logo.svg";
+import Image from "next/image";
+import Link from "next/link";
 
 function ResponsiveAppBar() {
   const { t } = useTranslation("common");
@@ -51,6 +54,15 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <Link href="/" passHref>
+            <Image
+              src={logo}
+              alt="Logo"
+              width={50} // Adjust width as needed
+              height={50} // Set height to match text size
+              style={{ marginRight: "2px", verticalAlign: "middle" }} // Margin and alignment
+            />
+          </Link>
           <Typography
             variant="h6"
             noWrap
