@@ -20,7 +20,6 @@ const ConditionalAppBar = () => {
 
   // Check if the normalized path matches any of the routes where the nav bar should be hidden
   if (hideNavBarRoutes.includes(normalizedPath)) {
-    console.log("Hi");
     return null;
   }
 
