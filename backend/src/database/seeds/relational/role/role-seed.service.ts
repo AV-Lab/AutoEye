@@ -41,5 +41,19 @@ export class RoleSeedService {
         }),
       );
     }
+    const countSAN = await this.repository.count({
+      where: {
+        id: RoleEnum['san-admin'],
+      },
+    });
+
+    if (!countSAN) {
+      await this.repository.save(
+        this.repository.create({
+          id: RoleEnum['san-admin'],
+          name: 'SAN Admin',
+        }),
+      );
+    }
   }
 }

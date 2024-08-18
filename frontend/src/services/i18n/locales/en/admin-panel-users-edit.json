@@ -35,7 +35,8 @@
       },
       "options": {
         "1": "Admin",
-        "2": "User"
+        "2": "Main Campus Admin",
+        "3": "SAN Campus Admin"
       }
     },
     "password": {

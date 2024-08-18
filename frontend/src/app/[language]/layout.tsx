@@ -1,4 +1,4 @@
-import ResponsiveAppBar from "@/components/app-bar";
+import ConditionalAppBar from "@/components/conditional-app-bar";
 import AuthProvider from "@/services/auth/auth-provider";
 import "../globals.css";
 import "@fontsource/roboto/300.css";
@@ -61,7 +61,7 @@ export default function RootLayout({
                     <GoogleAuthProvider>
                       <FacebookAuthProvider>
                         <LeavePageProvider>
-                          <ResponsiveAppBar />
+                          <ConditionalAppBar />
                           {children}
                         </LeavePageProvider>
                       </FacebookAuthProvider>

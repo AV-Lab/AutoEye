@@ -5,6 +5,15 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MuiLink from "@mui/material/Link";
 import { Trans } from "react-i18next/TransWithoutContext";
+import dynamic from "next/dynamic";
+
+// Dynamically import MapComponent with SSR disabled
+const MapComponent = dynamic(
+  () => import("@/components/map-leaflet/MapComponent"),
+  {
+    ssr: false,
+  }
+);
 
 type Props = {
   params: { language: string };
@@ -33,24 +42,9 @@ export default async function Home({ params }: Props) {
       >
         <Grid item>
           <Typography variant="h3" data-testid="home-title" gutterBottom>
-            {t("title")}
+            GPS Location
           </Typography>
-          <Typography>
-            <Trans
-              i18nKey={`description`}
-              t={t}
-              components={[
-                <MuiLink
-                  key="1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://github.com/Syed-Abbas-Hussain/AutoEye"
-                >
-                  {}
-                </MuiLink>,
-              ]}
-            />
-          </Typography>
+          <MapComponent />
         </Grid>
       </Grid>
     </Container>

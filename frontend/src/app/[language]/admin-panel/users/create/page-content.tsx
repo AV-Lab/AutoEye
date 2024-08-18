@@ -221,6 +221,9 @@ function FormCreateUser() {
                   {
                     id: RoleEnum.USER,
                   },
+                  {
+                    id: RoleEnum.SANADMIN,
+                  },
                 ]}
                 keyValue="id"
                 renderOption={(option) =>

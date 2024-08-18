@@ -107,7 +107,16 @@ function Form() {
 
   return (
     <FormProvider {...methods}>
-      <Container maxWidth="xs">
+      <Container
+        maxWidth="xs"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "100vh",
+        }}
+      >
         <form onSubmit={onSubmit}>
           <Grid container spacing={2} mb={2}>
             <Grid item xs={12} mt={3}>

@@ -351,7 +351,7 @@ function Users() {
                     {tUsers("admin-panel-users:table.column3")}
                   </TableSortCellWrapper>
 
-                  <TableCell style={{ width: 80 }}>
+                  <TableCell style={{ width: 200 }}>
                     {tUsers("admin-panel-users:table.column4")}
                   </TableCell>
                   <TableCell style={{ width: 130 }}></TableCell>

@@ -249,6 +249,9 @@ function FormEditUser() {
                   {
                     id: RoleEnum.USER,
                   },
+                  {
+                    id: RoleEnum.SANADMIN,
+                  },
                 ]}
                 keyValue="id"
                 renderOption={(option) =>

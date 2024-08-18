@@ -65,7 +65,37 @@ export class UserSeedService {
           password,
           role: {
             id: RoleEnum.user,
-            name: 'Admin',
+            name: 'User',
+          },
+          status: {
+            id: StatusEnum.active,
+            name: 'Active',
+          },
+        }),
+      );
+    }
+
+    const countSAN = await this.repository.count({
+      where: {
+        role: {
+          id: RoleEnum['san-admin'],
+        },
+      },
+    });
+
+    if (!countSAN) {
+      const salt = await bcrypt.genSalt();
+      const password = await bcrypt.hash('sanpassword', salt);
+
+      await this.repository.save(
+        this.repository.create({
+          firstName: 'Syed Abbas',
+          lastName: 'Hussain',
+          email: 'syed.hussain@ku.ac.ae',
+          password,
+          role: {
+            id: RoleEnum['san-admin'],
+            name: 'SAN Admin',
           },
           status: {
             id: StatusEnum.active,
