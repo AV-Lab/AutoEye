@@ -5,6 +5,7 @@ export class ChannelMapper {
   static toDomain(raw: ChannelEntity): Channel {
     const domainEntity = new Channel();
     domainEntity.id = raw.id;
+    domainEntity.name = raw.name;
     domainEntity.createdAt = raw.createdAt;
     domainEntity.updatedAt = raw.updatedAt;
 
@@ -16,6 +17,7 @@ export class ChannelMapper {
     if (domainEntity.id) {
       persistenceEntity.id = domainEntity.id;
     }
+    persistenceEntity.name = domainEntity.name;
     persistenceEntity.createdAt = domainEntity.createdAt;
     persistenceEntity.updatedAt = domainEntity.updatedAt;
 

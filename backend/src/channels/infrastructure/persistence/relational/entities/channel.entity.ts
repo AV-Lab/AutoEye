@@ -1,4 +1,5 @@
 import {
+  Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
@@ -14,6 +15,10 @@ export class ChannelEntity extends EntityRelationalHelper {
   @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @ApiProperty()
+  @Column({ nullable: true })
+  name: string;
 
   @ApiProperty()
   @CreateDateColumn()

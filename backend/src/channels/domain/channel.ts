@@ -6,6 +6,9 @@ export class Channel {
   })
   id: string;
 
+  @ApiProperty({ type: String })
+  name: string;
+
   @ApiProperty()
   createdAt: Date;
 
