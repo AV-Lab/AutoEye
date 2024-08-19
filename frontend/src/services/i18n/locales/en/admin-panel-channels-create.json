@@ -1,0 +1,21 @@
+{
+    "title": "Create Channel",
+    "actions": {
+      "submit": "Save",
+      "cancel": "Cancel"
+    },
+    "inputs": {
+      "name": {
+        "label": "Channel Name",
+        "validation": {
+          "required": "Channel Name is required"
+        }
+      }
+    },
+    "alerts": {
+      "channel": {
+        "success": "Channel has been created successfully"
+      }
+    }
+  }
+  

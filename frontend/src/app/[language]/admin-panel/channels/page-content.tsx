@@ -297,9 +297,9 @@ function Channels() {
             </Typography>
           </Grid>
           <Grid container item xs="auto" wrap="nowrap" spacing={2}>
-            <Grid item xs="auto">
+            {/* <Grid item xs="auto">
               <ChannelFilter />
-            </Grid>
+            </Grid> */}
             <Grid item xs="auto">
               <Button
                 variant="contained"
@@ -324,7 +324,7 @@ function Channels() {
               <>
                 <TableRow>
                   <TableCell style={{ width: 50 }}></TableCell>
-                  <TableSortCellWrapper
+                  {/* <TableSortCellWrapper
                     width={100}
                     orderBy={orderBy}
                     order={order}
@@ -332,9 +332,9 @@ function Channels() {
                     handleRequestSort={handleRequestSort}
                   >
                     {tChannels("admin-panel-channels:table.id")}
-                  </TableSortCellWrapper>
+                  </TableSortCellWrapper> */}
                   <TableCell style={{ width: 200 }}>
-                    {tChannels("admin-panel-channels:table.name")}
+                    {tChannels("admin-panel-channels:table.column2")}
                   </TableCell>
                   <TableSortCellWrapper
                     orderBy={orderBy}
@@ -342,7 +342,7 @@ function Channels() {
                     column="createdAt"
                     handleRequestSort={handleRequestSort}
                   >
-                    {tChannels("admin-panel-channels:table.createdAt")}
+                    {tChannels("admin-panel-channels:table.column3")}
                   </TableSortCellWrapper>
                   <TableSortCellWrapper
                     orderBy={orderBy}
@@ -350,7 +350,7 @@ function Channels() {
                     column="updatedAt"
                     handleRequestSort={handleRequestSort}
                   >
-                    {tChannels("admin-panel-channels:table.updatedAt")}
+                    {tChannels("admin-panel-channels:table.column4")}
                   </TableSortCellWrapper>
                   <TableCell style={{ width: 130 }}></TableCell>
                 </TableRow>
@@ -368,7 +368,7 @@ function Channels() {
                 <TableCell style={{ width: 50 }}>
                   {/* Add any channel-specific image or icon here if needed */}
                 </TableCell>
-                <TableCell style={{ width: 100 }}>{channel.id}</TableCell>
+                {/* <TableCell style={{ width: 100 }}>{channel.id}</TableCell> */}
                 <TableCell style={{ width: 200 }}>{channel.name}</TableCell>
                 <TableCell style={{ width: 200 }}>
                   {new Date(channel.createdAt).toLocaleDateString()}

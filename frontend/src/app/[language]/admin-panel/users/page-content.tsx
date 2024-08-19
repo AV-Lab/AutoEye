@@ -330,7 +330,7 @@ function Users() {
               <>
                 <TableRow>
                   <TableCell style={{ width: 50 }}></TableCell>
-                  <TableSortCellWrapper
+                  {/* <TableSortCellWrapper
                     width={100}
                     orderBy={orderBy}
                     order={order}
@@ -338,7 +338,7 @@ function Users() {
                     handleRequestSort={handleRequestSort}
                   >
                     {tUsers("admin-panel-users:table.column1")}
-                  </TableSortCellWrapper>
+                  </TableSortCellWrapper> */}
                   <TableCell style={{ width: 200 }}>
                     {tUsers("admin-panel-users:table.column2")}
                   </TableCell>
@@ -373,7 +373,7 @@ function Users() {
                     src={user?.photo?.path}
                   />
                 </TableCell>
-                <TableCell style={{ width: 100 }}>{user?.id}</TableCell>
+                {/* <TableCell style={{ width: 100 }}>{user?.id}</TableCell> */}
                 <TableCell style={{ width: 200 }}>
                   {user?.firstName} {user?.lastName}
                 </TableCell>

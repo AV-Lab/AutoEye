@@ -14,7 +14,7 @@ import { ChannelFilterType } from "./channel-filter-types";
 type ChannelFilterFormData = ChannelFilterType;
 
 function ChannelFilter() {
-  const { t } = useTranslation("admin-panel-channels"); // Update translation key if necessary
+  const { t } = useTranslation("admin-panel-channels");
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -78,13 +78,12 @@ function ChannelFilter() {
               <Grid item xs={12}>
                 <FormTextInput<ChannelFilterFormData>
                   name="name"
-                  label={t("admin-panel-channels:filter.inputs.name.label")} // Update translation key if necessary
+                  label={t("admin-panel-channels:filter.inputs.name.label")}
                 />
               </Grid>
               <Grid item xs={12}>
                 <Button variant="contained" type="submit">
-                  {t("admin-panel-channels:filter.actions.apply")} // Update
-                  translation key if necessary
+                  {t("admin-panel-channels:filter.actions.apply")}
                 </Button>
               </Grid>
             </Grid>
@@ -92,8 +91,7 @@ function ChannelFilter() {
         </Container>
       </Popover>
       <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        {t("admin-panel-channels:filter.actions.filter")} // Update translation
-        key if necessary
+        {t("admin-panel-channels:filter.actions.filter")}
       </Button>
     </FormProvider>
   );

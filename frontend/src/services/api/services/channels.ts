@@ -69,7 +69,7 @@ export function usePostChannelService() {
 
   return useCallback(
     (data: ChannelPostRequest, requestConfig?: RequestConfigType) => {
-      return fetch(`${API_URL}/channels`, {
+      return fetch(`${API_URL}/v1/channels`, {
         method: "POST",
         body: JSON.stringify(data),
         ...requestConfig,
@@ -91,7 +91,7 @@ export function usePatchChannelService() {
 
   return useCallback(
     (data: ChannelPatchRequest, requestConfig?: RequestConfigType) => {
-      return fetch(`${API_URL}/channels/${data.id}`, {
+      return fetch(`${API_URL}/v1/channels/${data.id}`, {
         method: "PATCH",
         body: JSON.stringify(data.data),
         ...requestConfig,
@@ -112,7 +112,7 @@ export function useDeleteChannelService() {
 
   return useCallback(
     (data: ChannelDeleteRequest, requestConfig?: RequestConfigType) => {
-      return fetch(`${API_URL}/channels/${data.id}`, {
+      return fetch(`${API_URL}/v1/channels/${data.id}`, {
         method: "DELETE",
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<ChannelDeleteResponse>);
