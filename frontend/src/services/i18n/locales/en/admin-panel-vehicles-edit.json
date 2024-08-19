@@ -1,0 +1,21 @@
+{
+  "title1": "Edit Vehicle",
+  "title2": "",
+  "actions": {
+    "submit": "Save",
+    "cancel": "Cancel"
+  },
+  "inputs": {
+    "name": {
+      "label": "Vehicle Name",
+      "validation": {
+        "required": "Vehicle Name is required"
+      }
+    }
+  },
+  "alerts": {
+    "vehicle": {
+      "success": "Vehicle has been updated successfully"
+    }
+  }
+}

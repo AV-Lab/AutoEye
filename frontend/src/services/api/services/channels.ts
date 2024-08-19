@@ -51,7 +51,7 @@ export function useGetChannelService() {
 
   return useCallback(
     (data: ChannelRequest, requestConfig?: RequestConfigType) => {
-      return fetch(`${API_URL}/channels/${data.id}`, {
+      return fetch(`${API_URL}/v1/channels/${data.id}`, {
         method: "GET",
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<ChannelResponse>);

@@ -1,0 +1,20 @@
+{
+  "title": "Create Vehicle",
+  "actions": {
+    "submit": "Save",
+    "cancel": "Cancel"
+  },
+  "inputs": {
+    "name": {
+      "label": "Vehicle Name",
+      "validation": {
+        "required": "Vehicle Name is required"
+      }
+    }
+  },
+  "alerts": {
+    "vehicle": {
+      "success": "Vehicle has been created successfully"
+    }
+  }
+}

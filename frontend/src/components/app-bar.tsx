@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -20,7 +19,6 @@ import { RoleEnum } from "@/services/api/types/role";
 import Divider from "@mui/material/Divider";
 import ThemeSwitchButton from "@/components/switch-theme-button";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
-
 import logo from "../../public/logo/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -115,7 +113,6 @@ function ResponsiveAppBar() {
                   {t("common:navigation.home")}
                 </Typography>
               </MenuItem>
-
               {!!user?.role &&
                 [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && [
                   <MenuItem
@@ -126,6 +123,30 @@ function ResponsiveAppBar() {
                   >
                     <Typography textAlign="center">
                       {t("common:navigation.users")}
+                    </Typography>
+                  </MenuItem>,
+                  // mobile-menu-items
+                ]}
+              {!!user?.role &&
+                [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && [
+                  <MenuItem
+                    key="channels"
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    href="/admin-panel/channels"
+                  >
+                    <Typography textAlign="center">
+                      {t("common:navigation.channels")}
+                    </Typography>
+                  </MenuItem>,
+                  <MenuItem
+                    key="vehicles"
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    href="/admin-panel/vehicles"
+                  >
+                    <Typography textAlign="center">
+                      {t("common:navigation.vehicles")}
                     </Typography>
                   </MenuItem>,
                   // mobile-menu-items
@@ -177,29 +198,90 @@ function ResponsiveAppBar() {
             {t("common:app-name")}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              component={Link}
-              href="/"
-            >
-              {t("common:navigation.home")}
-            </Button>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  position: "relative",
+                }}
+                component={Link}
+                href="/"
+              >
+                {t("common:navigation.home")}
+              </Button>
 
-            {!!user?.role &&
-              [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && (
-                <>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
-                    component={Link}
-                    href="/admin-panel/users"
-                  >
-                    {t("common:navigation.users")}
-                  </Button>
-                  {/* desktop-menu-items */}
-                </>
-              )}
+              <Box
+                sx={{
+                  width: "2px",
+                  backgroundColor: "rgba(255, 255, 255, 0.5)",
+                  height: "50%", // Adjust this value to control the line height
+                  mx: 1, // Margin to separate the line from buttons
+                }}
+              />
+              {!!user?.role &&
+                [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && (
+                  <>
+                    <Button
+                      onClick={handleCloseNavMenu}
+                      sx={{
+                        my: 2,
+                        color: "white",
+                        display: "block",
+                        position: "relative",
+                      }}
+                      component={Link}
+                      href="/admin-panel/users"
+                    >
+                      {t("common:navigation.users")}
+                    </Button>
+                    <Box
+                      sx={{
+                        width: "2px",
+                        backgroundColor: "rgba(255, 255, 255, 0.5)",
+                        height: "50%", // Adjust this value to control the line height
+                        mx: 1, // Margin to separate the line from buttons
+                      }}
+                    />
+                    <Button
+                      onClick={handleCloseNavMenu}
+                      sx={{
+                        my: 2,
+                        color: "white",
+                        display: "block",
+                        position: "relative",
+                      }}
+                      component={Link}
+                      href="/admin-panel/channels"
+                    >
+                      {t("common:navigation.channels")}
+                    </Button>
+                    <Box
+                      sx={{
+                        width: "2px",
+                        backgroundColor: "rgba(255, 255, 255, 0.5)",
+                        height: "50%", // Adjust this value to control the line height
+                        mx: 1, // Margin to separate the line from buttons
+                      }}
+                    />
+                    <Button
+                      onClick={handleCloseNavMenu}
+                      sx={{
+                        my: 2,
+                        color: "white",
+                        display: "block",
+                        position: "relative",
+                      }}
+                      component={Link}
+                      href="/admin-panel/vehicles"
+                    >
+                      {t("common:navigation.vehicles")}
+                    </Button>
+                  </>
+                )}
+            </Box>
           </Box>
 
           <Box
@@ -295,4 +377,5 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
+
 export default ResponsiveAppBar;
