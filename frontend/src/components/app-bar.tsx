@@ -198,7 +198,9 @@ function ResponsiveAppBar() {
             {t("common:app-name")}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box
+              sx={{ display: "flex", alignItems: "center", columnGap: "4px" }}
+            >
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{
@@ -213,17 +215,10 @@ function ResponsiveAppBar() {
                 {t("common:navigation.home")}
               </Button>
 
-              <Box
-                sx={{
-                  width: "2px",
-                  backgroundColor: "rgba(255, 255, 255, 0.5)",
-                  height: "50%", // Adjust this value to control the line height
-                  mx: 1, // Margin to separate the line from buttons
-                }}
-              />
               {!!user?.role &&
                 [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && (
                   <>
+                    <VerticalLine />
                     <Button
                       onClick={handleCloseNavMenu}
                       sx={{
@@ -237,14 +232,7 @@ function ResponsiveAppBar() {
                     >
                       {t("common:navigation.users")}
                     </Button>
-                    <Box
-                      sx={{
-                        width: "2px",
-                        backgroundColor: "rgba(255, 255, 255, 0.5)",
-                        height: "50%", // Adjust this value to control the line height
-                        mx: 1, // Margin to separate the line from buttons
-                      }}
-                    />
+                    <VerticalLine />
                     <Button
                       onClick={handleCloseNavMenu}
                       sx={{
@@ -258,14 +246,7 @@ function ResponsiveAppBar() {
                     >
                       {t("common:navigation.channels")}
                     </Button>
-                    <Box
-                      sx={{
-                        width: "2px",
-                        backgroundColor: "rgba(255, 255, 255, 0.5)",
-                        height: "50%", // Adjust this value to control the line height
-                        mx: 1, // Margin to separate the line from buttons
-                      }}
-                    />
+                    <VerticalLine />
                     <Button
                       onClick={handleCloseNavMenu}
                       sx={{
@@ -377,5 +358,19 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
+
+const VerticalLine = () => (
+  <Box
+    sx={{
+      width: "2px",
+      maxWidth: "2px",
+      minWidth: "2px",
+      backgroundColor: "rgba(255, 255, 255, 0.5)",
+      height: "50%",
+      margin: 0,
+      padding: 0,
+    }}
+  />
+);
 
 export default ResponsiveAppBar;
