@@ -31,14 +31,16 @@ export class ChannelRelationalRepository implements ChannelRepository {
     const entities = await this.channelRepository.find({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
       take: paginationOptions.limit,
+      relations: ['vehicles'], // Ensure vehicles are loaded with channels
     });
 
-    return entities.map((user) => ChannelMapper.toDomain(user));
+    return entities.map((channel) => ChannelMapper.toDomain(channel));
   }
 
   async findById(id: Channel['id']): Promise<NullableType<Channel>> {
     const entity = await this.channelRepository.findOne({
       where: { id },
+      relations: ['vehicles'], // Ensure vehicles are loaded with the channel
     });
 
     return entity ? ChannelMapper.toDomain(entity) : null;
@@ -47,6 +49,7 @@ export class ChannelRelationalRepository implements ChannelRepository {
   async update(id: Channel['id'], payload: Partial<Channel>): Promise<Channel> {
     const entity = await this.channelRepository.findOne({
       where: { id },
+      relations: ['vehicles'], // Ensure vehicles are loaded with the channel
     });
 
     if (!entity) {

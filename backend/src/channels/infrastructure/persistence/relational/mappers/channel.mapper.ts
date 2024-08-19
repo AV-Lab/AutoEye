@@ -6,6 +6,8 @@ export class ChannelMapper {
     const domainEntity = new Channel();
     domainEntity.id = raw.id;
     domainEntity.name = raw.name;
+    // domainEntity.vehicles = raw.vehicles;
+    domainEntity.vehiclesCount = raw.vehicles?.length;
     domainEntity.createdAt = raw.createdAt;
     domainEntity.updatedAt = raw.updatedAt;
 

@@ -1,15 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpStatus,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 import { VehicleRepository } from './infrastructure/persistence/vehicle.repository';
 import { IPaginationOptions } from '../utils/types/pagination-options';
 import { Vehicle } from './domain/vehicle';
+import { ChannelsService } from 'src/channels/channels.service';
 
 @Injectable()
 export class VehiclesService {
-  constructor(private readonly vehicleRepository: VehicleRepository) {}
+  constructor(
+    private readonly vehicleRepository: VehicleRepository,
+    private readonly channelsService: ChannelsService,
+  ) {}
 
-  create(createVehicleDto: CreateVehicleDto) {
+  async create(createVehicleDto: CreateVehicleDto) {
+    if (createVehicleDto.channel?.id) {
+      const channelObject = await this.channelsService.findOne(
+        createVehicleDto.channel.id,
+      );
+      if (!channelObject) {
+        throw new UnprocessableEntityException({
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            channel: 'channelNotFound',
+          },
+        });
+      }
+      createVehicleDto.channel = channelObject;
+    }
+
     return this.vehicleRepository.create(createVehicleDto);
   }
 
@@ -30,7 +53,22 @@ export class VehiclesService {
     return this.vehicleRepository.findById(id);
   }
 
-  update(id: Vehicle['id'], updateVehicleDto: UpdateVehicleDto) {
+  async update(id: Vehicle['id'], updateVehicleDto: UpdateVehicleDto) {
+    if (updateVehicleDto.channel?.id) {
+      const channelObject = await this.channelsService.findOne(
+        updateVehicleDto.channel.id,
+      );
+      if (!channelObject) {
+        throw new UnprocessableEntityException({
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            channel: 'channelNotFound',
+          },
+        });
+      }
+      updateVehicleDto.channel = channelObject;
+    }
+
     return this.vehicleRepository.update(id, updateVehicleDto);
   }
 
