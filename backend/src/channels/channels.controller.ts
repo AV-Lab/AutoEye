@@ -8,6 +8,8 @@ import {
   Delete,
   UseGuards,
   Query,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { ChannelsService } from './channels.service';
 import { CreateChannelDto } from './dto/create-channel.dto';
@@ -39,6 +41,7 @@ export class ChannelsController {
   constructor(private readonly channelsService: ChannelsService) {}
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: Channel,
   })
@@ -102,6 +105,7 @@ export class ChannelsController {
     type: String,
     required: true,
   })
+  @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
     return this.channelsService.remove(id);
   }
