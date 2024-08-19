@@ -1,3 +1,8 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
+
 export class CreateVehicleDto {
-  // Don't forget to use the class-validator decorators in the DTO properties.
+  @ApiProperty({ example: 'GenZ', type: String })
+  @IsNotEmpty()
+  name: string;
 }

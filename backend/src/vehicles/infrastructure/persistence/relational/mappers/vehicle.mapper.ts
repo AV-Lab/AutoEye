@@ -5,6 +5,7 @@ export class VehicleMapper {
   static toDomain(raw: VehicleEntity): Vehicle {
     const domainEntity = new Vehicle();
     domainEntity.id = raw.id;
+    domainEntity.name = raw.name;
     domainEntity.createdAt = raw.createdAt;
     domainEntity.updatedAt = raw.updatedAt;
 
@@ -16,6 +17,7 @@ export class VehicleMapper {
     if (domainEntity.id) {
       persistenceEntity.id = domainEntity.id;
     }
+    persistenceEntity.name = domainEntity.name;
     persistenceEntity.createdAt = domainEntity.createdAt;
     persistenceEntity.updatedAt = domainEntity.updatedAt;
 
