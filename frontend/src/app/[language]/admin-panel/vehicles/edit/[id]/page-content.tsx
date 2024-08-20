@@ -21,9 +21,16 @@ import {
   usePatchVehicleService,
 } from "@/services/api/services/vehicles";
 import { useParams } from "next/navigation";
+import { useAllChannels } from "@/services/api/useAllChannels"; // Assuming you have this hook
+import FormSelectInput from "@/components/form/select/form-select";
+import { Channel, ChannelData } from "@/services/api/types/channel";
 
 type EditVehicleFormData = {
   name: string;
+  channel: {
+    id: string | number;
+    name?: string;
+  }; // Include channel information
 };
 
 const useValidationEditVehicleSchema = () => {
@@ -33,6 +40,10 @@ const useValidationEditVehicleSchema = () => {
     name: yup
       .string()
       .required(t("admin-panel-vehicles-edit:inputs.name.validation.required")),
+    channel: yup.object().shape({
+      id: yup.mixed<string | number>().required(),
+      name: yup.string(),
+    }),
   });
 };
 
@@ -66,16 +77,29 @@ function FormEditVehicle() {
     resolver: yupResolver(validationSchema),
     defaultValues: {
       name: "",
+      channel: {
+        id: "",
+      }, // Initialize with empty channel
     },
   });
 
   const { handleSubmit, setError, reset } = methods;
 
+  const { channels } = useAllChannels(); // Fetch channels
+
   const onSubmit = handleSubmit(async (formData) => {
+    const ID = formData.channel.id as unknown as Channel;
+    const transformedData = {
+      name: formData.name,
+      channel: {
+        id: ID.id,
+      }, // Include channel in the payload
+    };
     const { data, status } = await fetchPatchVehicle({
       id: vehicleId,
-      data: formData,
+      data: transformedData,
     });
+
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
       (Object.keys(data.errors) as Array<keyof EditVehicleFormData>).forEach(
         (key) => {
@@ -89,6 +113,7 @@ function FormEditVehicle() {
       );
       return;
     }
+
     if (status === HTTP_CODES_ENUM.OK) {
       reset(formData);
       enqueueSnackbar(t("admin-panel-vehicles-edit:alerts.vehicle.success"), {
@@ -106,6 +131,7 @@ function FormEditVehicle() {
       if (status === HTTP_CODES_ENUM.OK) {
         reset({
           name: vehicle?.name ?? "",
+          channel: vehicle?.channel ?? { id: "" }, // Set the channel data
         });
       }
     };
@@ -129,6 +155,20 @@ function FormEditVehicle() {
                 name="name"
                 testId="name"
                 label={t("admin-panel-vehicles-edit:inputs.name.label")}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormSelectInput<EditVehicleFormData, Channel>
+                name="channel.id" // Adjust to match the form state structure
+                testId="channel"
+                label={t("admin-panel-vehicles-edit:inputs.channel.label")}
+                options={channels || []}
+                keyValue="id"
+                renderOption={(option) =>
+                  option.name ||
+                  t("admin-panel-vehicles-edit:inputs.channel.unknown")
+                }
               />
             </Grid>
 

@@ -287,8 +287,6 @@ function Channels() {
     return removeDuplicatesFromArrayObjects(result, "id");
   }, [data]);
 
-  console.log("TESING", result);
-
   return (
     <Container maxWidth="md">
       <Grid container spacing={3} pt={3}>
@@ -376,11 +374,14 @@ function Channels() {
                   {channel.vehiclesCount}
                 </TableCell>
                 <TableCell style={{ width: 200 }}>
-                  {new Date(channel.createdAt).toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                  })}
+                  {new Date(channel.createdAt || "").toLocaleDateString(
+                    "en-GB",
+                    {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    }
+                  )}
                 </TableCell>
 
                 <TableCell style={{ width: 130 }}>

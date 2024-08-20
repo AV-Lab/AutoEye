@@ -16,10 +16,17 @@ import Box from "@mui/material/Box";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
 import { usePostVehicleService } from "@/services/api/services/vehicles";
+import { useAllChannels } from "@/services/api/useAllChannels"; // Assuming you have this hook
 import { useRouter } from "next/navigation";
+import FormSelectInput from "@/components/form/select/form-select";
+import { Channel, ChannelData } from "@/services/api/types/channel";
 
 type CreateVehicleFormData = {
   name: string;
+  channel: {
+    id: string;
+    name?: string;
+  }; // Changed to channelId
 };
 
 const useValidationSchema = () => {
@@ -31,6 +38,10 @@ const useValidationSchema = () => {
       .required(
         t("admin-panel-vehicles-create:inputs.name.validation.required")
       ),
+    channel: yup.object().shape({
+      id: yup.mixed<string>().required(),
+      name: yup.string(),
+    }),
   });
 };
 
@@ -63,13 +74,26 @@ function FormCreateVehicle() {
     resolver: yupResolver(validationSchema),
     defaultValues: {
       name: "",
+      channel: {
+        id: "",
+      }, // Changed to channelId
     },
   });
 
   const { handleSubmit, setError } = methods;
 
+  const { channels } = useAllChannels();
+
   const onSubmit = handleSubmit(async (formData) => {
-    const { data, status } = await fetchPostVehicle(formData);
+    const selectedChannel = formData.channel.id as unknown as ChannelData;
+    // const vehicleName =
+    const transformedData = {
+      name: formData.name,
+      channel: {
+        id: selectedChannel.id,
+      },
+    };
+    const { data, status } = await fetchPostVehicle(transformedData);
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
       (Object.keys(data.errors) as Array<keyof CreateVehicleFormData>).forEach(
         (key) => {
@@ -107,6 +131,23 @@ function FormCreateVehicle() {
                 name="name"
                 testId="new-vehicle-name"
                 label={t("admin-panel-vehicles-create:inputs.name.label")}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormSelectInput<
+                CreateVehicleFormData,
+                { id: string | number; name: string | undefined } // Adjusted to match the expected option type
+              >
+                name="channel.id" // Adjusted to channelId
+                testId="channel"
+                label={t("admin-panel-vehicles-create:inputs.channel.label")}
+                options={channels || []} // Use state variable
+                keyValue="id"
+                renderOption={(option) =>
+                  option.name ||
+                  t("admin-panel-vehicles-create:inputs.channel.unknown")
+                }
               />
             </Grid>
 

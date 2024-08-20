@@ -11,6 +11,9 @@
       "validation": {
         "required": "Vehicle Name is required"
       }
+    },
+    "channel": {
+      "label": "Channel Name"
     }
   },
   "alerts": {
