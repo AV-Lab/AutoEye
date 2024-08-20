@@ -3,8 +3,8 @@
   "table": {
     "column1": "ID",
     "column2": "Name",
-    "column3": "Created At",
-    "column4": "Updated At"
+    "column3": "Channel Name",
+    "column4": "Created At"
   },
   "actions": {
     "add": "Add Vehicle",

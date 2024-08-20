@@ -287,6 +287,8 @@ function Channels() {
     return removeDuplicatesFromArrayObjects(result, "id");
   }, [data]);
 
+  console.log("TESING", result);
+
   return (
     <Container maxWidth="md">
       <Grid container spacing={3} pt={3}>
@@ -339,7 +341,7 @@ function Channels() {
                   <TableSortCellWrapper
                     orderBy={orderBy}
                     order={order}
-                    column="createdAt"
+                    column="vehiclesCount"
                     handleRequestSort={handleRequestSort}
                   >
                     {tChannels("admin-panel-channels:table.column3")}
@@ -347,7 +349,7 @@ function Channels() {
                   <TableSortCellWrapper
                     orderBy={orderBy}
                     order={order}
-                    column="updatedAt"
+                    column="createdAt"
                     handleRequestSort={handleRequestSort}
                   >
                     {tChannels("admin-panel-channels:table.column4")}
@@ -371,11 +373,16 @@ function Channels() {
                 {/* <TableCell style={{ width: 100 }}>{channel.id}</TableCell> */}
                 <TableCell style={{ width: 200 }}>{channel.name}</TableCell>
                 <TableCell style={{ width: 200 }}>
-                  {new Date(channel.createdAt).toLocaleDateString()}
+                  {channel.vehiclesCount}
                 </TableCell>
                 <TableCell style={{ width: 200 }}>
-                  {new Date(channel.updatedAt).toLocaleDateString()}
+                  {new Date(channel.createdAt).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  })}
                 </TableCell>
+
                 <TableCell style={{ width: 130 }}>
                   {!!channel && <Actions channel={channel} />}
                 </TableCell>

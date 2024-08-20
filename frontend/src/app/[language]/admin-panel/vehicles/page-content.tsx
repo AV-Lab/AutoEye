@@ -344,7 +344,7 @@ function Vehicles() {
                   <TableSortCellWrapper
                     orderBy={orderBy}
                     order={order}
-                    column="createdAt"
+                    column="channel"
                     handleRequestSort={handleRequestSort}
                   >
                     {tVehicles("admin-panel-vehicles:table.column3")}
@@ -352,7 +352,7 @@ function Vehicles() {
                   <TableSortCellWrapper
                     orderBy={orderBy}
                     order={order}
-                    column="updatedAt"
+                    column="createdAt"
                     handleRequestSort={handleRequestSort}
                   >
                     {tVehicles("admin-panel-vehicles:table.column4")}
@@ -375,11 +375,16 @@ function Vehicles() {
                 </TableCell>
                 <TableCell style={{ width: 200 }}>{vehicle.name}</TableCell>
                 <TableCell style={{ width: 200 }}>
-                  {new Date(vehicle.createdAt).toLocaleDateString()}
+                  {vehicle.channel?.name}
                 </TableCell>
                 <TableCell style={{ width: 200 }}>
-                  {new Date(vehicle.updatedAt).toLocaleDateString()}
+                  {new Date(vehicle.createdAt).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  })}
                 </TableCell>
+
                 <TableCell style={{ width: 130 }}>
                   {!!vehicle && <Actions vehicle={vehicle} />}
                 </TableCell>

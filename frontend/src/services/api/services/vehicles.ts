@@ -60,7 +60,7 @@ export function useGetVehicleService() {
   );
 }
 
-export type VehiclePostRequest = Pick<Vehicle, "name">;
+export type VehiclePostRequest = Pick<Vehicle, "name" | "channel">;
 
 export type VehiclePostResponse = Vehicle;
 
@@ -81,7 +81,7 @@ export function usePostVehicleService() {
 
 export type VehiclePatchRequest = {
   id: Vehicle["id"];
-  data: Partial<Pick<Vehicle, "name">>;
+  data: Partial<Pick<Vehicle, "name" | "channel">>;
 };
 
 export type VehiclePatchResponse = Vehicle;
