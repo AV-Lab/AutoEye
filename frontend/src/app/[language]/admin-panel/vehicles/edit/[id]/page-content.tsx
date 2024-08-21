@@ -83,18 +83,19 @@ function FormEditVehicle() {
     },
   });
 
-  const { handleSubmit, setError, reset } = methods;
+  const { handleSubmit, setError, reset, watch } = methods;
 
   const { channels } = useAllChannels(); // Fetch channels
 
   const onSubmit = handleSubmit(async (formData) => {
-    const ID = formData.channel.id as unknown as Channel;
+    const ID = formData.channel.id;
     const transformedData = {
       name: formData.name,
       channel: {
-        id: ID.id,
+        id: ID,
       }, // Include channel in the payload
     };
+
     const { data, status } = await fetchPatchVehicle({
       id: vehicleId,
       data: transformedData,
@@ -129,10 +130,14 @@ function FormEditVehicle() {
       });
 
       if (status === HTTP_CODES_ENUM.OK) {
-        reset({
+        const initialValues = {
           name: vehicle?.name ?? "",
-          channel: vehicle?.channel ?? { id: "" }, // Set the channel data
-        });
+          channel: {
+            id: vehicle?.channel?.id,
+            name: vehicle?.channel?.name,
+          }, // Set the channel data
+        };
+        reset(initialValues);
       }
     };
 
@@ -159,12 +164,12 @@ function FormEditVehicle() {
             </Grid>
 
             <Grid item xs={12}>
-              <FormSelectInput<EditVehicleFormData, Channel>
-                name="channel.id" // Adjust to match the form state structure
+              <FormSelectInput<EditVehicleFormData, Pick<Channel, "name">>
+                name="channel" // Adjust to match the form state structure
                 testId="channel"
                 label={t("admin-panel-vehicles-edit:inputs.channel.label")}
                 options={channels || []}
-                keyValue="id"
+                keyValue="name"
                 renderOption={(option) =>
                   option.name ||
                   t("admin-panel-vehicles-edit:inputs.channel.unknown")
