@@ -32,8 +32,10 @@ const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
 import { VehiclesModule } from './vehicles/vehicles.module';
 
 import { ChannelsModule } from './channels/channels.module';
+import { AppGateway } from './app.gateway';
 
 @Module({
+  providers: [AppGateway],
   imports: [
     ChannelsModule,
     VehiclesModule,

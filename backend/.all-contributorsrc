@@ -1,6 +1,6 @@
 {
-  "projectName": "nestjs-boilerplate",
-  "projectOwner": "brocoders",
+  "projectName": "autoeye",
+  "projectOwner": "ku-avlab",
   "files": [
     "README.md"
   ],
@@ -9,42 +9,14 @@
   "contributorsPerLine": 7,
   "contributors": [
     {
-      "login": "Shchepotin",
-      "name": "Vladyslav Shchepotin",
-      "avatar_url": "https://avatars.githubusercontent.com/u/6001723?v=4",
-      "profile": "https://github.com/Shchepotin",
+      "login": "Abbas",
+      "name": "Syed Abbas Hussain",
+      "avatar_url": "https://avatars.githubusercontent.com/u/177215344",
+      "profile": "https://github.com/Syed-Abbas-Hussain",
       "contributions": [
-        "maintenance",
-        "doc",
-        "code"
-      ]
-    },
-    {
-      "login": "SergeiLomako",
-      "name": "SergeiLomako",
-      "avatar_url": "https://avatars.githubusercontent.com/u/31205374?v=4",
-      "profile": "https://github.com/SergeiLomako",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "ElenVlass",
-      "name": "Elena Vlasenko",
-      "avatar_url": "https://avatars.githubusercontent.com/u/72293912?v=4",
-      "profile": "https://github.com/ElenVlass",
-      "contributions": [
-        "doc"
-      ]
-    },
-    {
-      "login": "sars",
-      "name": "Rodion",
-      "avatar_url": "https://avatars.githubusercontent.com/u/226194?v=4",
-      "profile": "http://brocoders.com",
-      "contributions": [
-        "business"
+       "lead dev"
       ]
     }
+    
   ]
 }
