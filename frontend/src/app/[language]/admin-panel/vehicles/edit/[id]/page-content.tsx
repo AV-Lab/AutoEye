@@ -23,7 +23,7 @@ import {
 import { useParams } from "next/navigation";
 import { useAllChannels } from "@/services/api/useAllChannels"; // Assuming you have this hook
 import FormSelectInput from "@/components/form/select/form-select";
-import { Channel, ChannelData } from "@/services/api/types/channel";
+import { Channel } from "@/services/api/types/channel";
 
 type EditVehicleFormData = {
   name: string;
