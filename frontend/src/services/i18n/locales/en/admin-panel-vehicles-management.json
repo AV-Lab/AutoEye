@@ -1,0 +1,38 @@
+{
+    "title": "Vehicles Management",
+    "table": {
+      "column1": "ID",
+      "column2": "Name",
+      "column3": "Channel Name",
+      "column4": "Created At"
+    },
+    "actions": {
+      "add": "Add Vehicle",
+      "edit": "Edit",
+      "delete": "Delete",
+      "create": "Create Vehicle"
+    },
+    "confirm": {
+      "delete": {
+        "title": "Delete Vehicle",
+        "message": "Are you sure you want to delete this vehicle?"
+      }
+    },
+    "filter": {
+      "actions": {
+        "filter": "Filter",
+        "apply": "Apply"
+      },
+      "inputs": {
+        "role": {
+          "label": "Role",
+          "options": {
+            "1": "Admin",
+            "2": "Main Campus Admin",
+            "3": "SAN Campus Admin"
+          }
+        }
+      }
+    }
+  }
+  
