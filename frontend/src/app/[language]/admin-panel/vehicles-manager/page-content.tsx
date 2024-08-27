@@ -14,10 +14,6 @@ import {
   useRef,
   useState,
 } from "react";
-import {
-  useChannelListQuery,
-  channelsQueryKeys,
-} from "./queries/channels-queries";
 import { TableVirtuoso } from "react-virtuoso";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
@@ -39,12 +35,8 @@ import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useDeleteChannelService } from "@/services/api/services/channels";
 import removeDuplicatesFromArrayObjects from "@/services/helpers/remove-duplicates-from-array-of-objects";
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
-import ChannelFilter from "./channel-filter";
-import { useRouter, useSearchParams } from "next/navigation";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import { ChannelFilterType, ChannelSortType } from "./channel-filter-types";
 import { SortEnum } from "@/services/api/types/sort-type";
-import TableWithDropdown from "@/components/table/table-with-dropdown";
 import {
   Collapse,
   Table,
@@ -55,14 +47,28 @@ import {
 import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import { Vehicle } from "@/services/api/types/vehicle";
+import {
+  useVehicleListQuery,
+  vehiclesQueryKeys,
+} from "../vehicles/queries/vehicles-queries";
+import { useDeleteVehicleService } from "@/services/api/services/vehicles";
+import {
+  VehicleFilterType,
+  VehicleSortType,
+} from "../vehicles/vehicle-filter-types";
+import { Update } from "@mui/icons-material";
+import {
+  ChannelFilterType,
+  ChannelSortType,
+} from "../channels/channel-filter-types";
+import { useSearchParams } from "next/navigation";
+import {
+  channelsQueryKeys,
+  useChannelListQuery,
+} from "../channels/queries/channels-queries";
 
 // data for the new table
-interface DataRow {
-  id: number;
-  name: string;
-  vehiclesLinked: number;
-  status: string;
-}
 
 interface SubDataRow {
   id: number;
@@ -104,7 +110,7 @@ function TableSortCellWrapper(
   );
 }
 
-function Actions({ channel }: { channel: Channel }) {
+function ChannelActions({ channel }: { channel: Channel }) {
   const [open, setOpen] = useState(false);
   const { confirmDialog } = useConfirmDialog();
   const fetchChannelDelete = useDeleteChannelService();
@@ -255,29 +261,166 @@ function Actions({ channel }: { channel: Channel }) {
   );
 }
 
-function Channels() {
-  // data for the new table
+function VehicleActions({ vehicle }: { vehicle: Vehicle }) {
+  const [open, setOpen] = useState(false);
+  const { confirmDialog } = useConfirmDialog();
+  const fetchVehicleDelete = useDeleteVehicleService();
+  const queryClient = useQueryClient();
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const { t: tVehicles } = useTranslation("admin-panel-vehicles");
 
-  const [subData, setSubData] = useState<SubDataRow[]>([]);
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // Simulate fetching data (replace with actual API calls)
+  const handleClose = (event: Event) => {
+    if (
+      anchorRef.current &&
+      anchorRef.current.contains(event.target as HTMLElement)
+    ) {
+      return;
+    }
 
-      const fetchedSubData: SubDataRow[] = [
-        { id: 1, vehicleName: "Vehicle A", location: "Location 1" },
-        { id: 2, vehicleName: "Vehicle B", location: "Location 2" },
-      ];
+    setOpen(false);
+  };
 
-      setSubData(fetchedSubData);
-    };
+  const handleDelete = async () => {
+    const isConfirmed = await confirmDialog({
+      title: tVehicles("admin-panel-vehicles:confirm.delete.title"),
+      message: tVehicles("admin-panel-vehicles:confirm.delete.message"),
+    });
 
-    fetchData();
-  }, []);
+    if (isConfirmed) {
+      setOpen(false);
 
-  const { t: tChannels } = useTranslation("admin-panel-channels");
+      const searchParams = new URLSearchParams(window.location.search);
+      const searchParamsFilter = searchParams.get("filter");
+      const searchParamsSort = searchParams.get("sort");
+
+      let filter: VehicleFilterType | undefined = undefined;
+      let sort: VehicleSortType | undefined = {
+        order: SortEnum.DESC,
+        orderBy: "id",
+      };
+
+      if (searchParamsFilter) {
+        filter = JSON.parse(searchParamsFilter);
+      }
+
+      if (searchParamsSort) {
+        sort = JSON.parse(searchParamsSort);
+      }
+
+      const previousData = queryClient.getQueryData<
+        InfiniteData<{ nextPage: number; data: Vehicle[] }>
+      >(vehiclesQueryKeys.list().sub.by({ sort, filter }).key);
+
+      await queryClient.cancelQueries({
+        queryKey: vehiclesQueryKeys.list().key,
+      });
+
+      const newData = {
+        ...previousData,
+        pages: previousData?.pages.map((page) => ({
+          ...page,
+          data: page?.data.filter((item) => item.id !== vehicle.id),
+        })),
+      };
+
+      queryClient.setQueryData(
+        vehiclesQueryKeys.list().sub.by({ sort, filter }).key,
+        newData
+      );
+
+      await fetchVehicleDelete({
+        id: vehicle.id,
+      });
+    }
+  };
+
+  const mainButton = (
+    <Button
+      size="small"
+      variant="contained"
+      LinkComponent={Link}
+      href={`/admin-panel/vehicles/edit/${vehicle.id}`}
+      color="success"
+    >
+      {tVehicles("admin-panel-vehicles:actions.edit")}
+    </Button>
+  );
+
+  return (
+    <>
+      <ButtonGroup
+        variant="contained"
+        ref={anchorRef}
+        aria-label="split button"
+        size="small"
+        color="success"
+      >
+        {mainButton}
+
+        <Button
+          size="small"
+          aria-controls={open ? "split-button-menu" : undefined}
+          aria-expanded={open ? "true" : undefined}
+          aria-label="select merge strategy"
+          aria-haspopup="menu"
+          onClick={handleToggle}
+        >
+          <ArrowDropDownIcon />
+        </Button>
+      </ButtonGroup>
+      <Popper
+        sx={{
+          zIndex: 1,
+        }}
+        open={open}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        transition
+        disablePortal
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === "bottom" ? "center top" : "center bottom",
+            }}
+          >
+            <Paper>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList id="split-button-menu" autoFocusItem>
+                  <MenuItem
+                    sx={{
+                      bgcolor: "error.main",
+                      "&:hover": {
+                        bgcolor: "error.light",
+                      },
+                    }}
+                    onClick={handleDelete}
+                  >
+                    {tVehicles("admin-panel-vehicles:actions.delete")}
+                  </MenuItem>
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+    </>
+  );
+}
+
+function VehiclesManagement() {
+  const { data: vehicleData } = useVehicleListQuery();
+
+  const { t: tVehiclesManagement } = useTranslation(
+    "admin-panel-vehicles-management"
+  );
   const searchParams = useSearchParams();
-  const router = useRouter();
   const [{ order, orderBy }, setSort] = useState<{
     order: SortEnum;
     orderBy: ChannelsKeys;
@@ -288,25 +431,6 @@ function Channels() {
     }
     return { order: SortEnum.DESC, orderBy: "id" };
   });
-
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: ChannelsKeys
-  ) => {
-    const isAsc = orderBy === property && order === SortEnum.ASC;
-    const searchParams = new URLSearchParams(window.location.search);
-    const newOrder = isAsc ? SortEnum.DESC : SortEnum.ASC;
-    const newOrderBy = property;
-    searchParams.set(
-      "sort",
-      JSON.stringify({ order: newOrder, orderBy: newOrderBy })
-    );
-    setSort({
-      order: newOrder,
-      orderBy: newOrderBy,
-    });
-    router.push(window.location.pathname + "?" + searchParams.toString());
-  };
 
   const filter = useMemo(() => {
     const searchParamsFilter = searchParams.get("filter");
@@ -319,11 +443,6 @@ function Channels() {
 
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useChannelListQuery({ filter, sort: { order, orderBy } });
-
-  const handleScroll = useCallback(() => {
-    if (!hasNextPage || isFetchingNextPage) return;
-    fetchNextPage();
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const result = useMemo(() => {
     const result =
@@ -345,7 +464,26 @@ function Channels() {
     });
   };
 
-  console.log(result);
+  const flattenedVehicleData =
+    vehicleData?.pages.flatMap((page) =>
+      page?.data.map((vehicle) => ({
+        id: vehicle.id,
+        name: vehicle.name,
+        createdAt: vehicle.createdAt,
+        channelId: vehicle.channel?.id,
+      }))
+    ) || [];
+
+  const allVehicleData =
+    vehicleData?.pages.flatMap((page) =>
+      page?.data.map((vehicle) => ({
+        id: vehicle.id,
+        name: vehicle.name,
+        createdAt: vehicle.createdAt,
+        updatedAt: vehicle.updatedAt,
+        channelId: vehicle.channel,
+      }))
+    ) || [];
 
   return (
     <Container maxWidth="md">
@@ -353,7 +491,7 @@ function Channels() {
         <Grid container item spacing={3} xs={12}>
           <Grid item xs>
             <Typography variant="h3">
-              {tChannels("admin-panel-channels:title")}
+              {tVehiclesManagement("admin-panel-vehicles-management:title")}
             </Typography>
           </Grid>
           <Grid container item xs="auto" wrap="nowrap" spacing={2}>
@@ -365,9 +503,22 @@ function Channels() {
                 variant="contained"
                 LinkComponent={Link}
                 href="/admin-panel/channels/create"
+                sx={{ marginRight: 2 }}
+              >
+                {tVehiclesManagement(
+                  "admin-panel-vehicles-management:actions.createC"
+                )}
+              </Button>
+
+              <Button
+                variant="contained"
+                LinkComponent={Link}
+                href="/admin-panel/vehicles/create"
                 color="success"
               >
-                {tChannels("admin-panel-channels:actions.create")}
+                {tVehiclesManagement(
+                  "admin-panel-vehicles-management:actions.createV"
+                )}
               </Button>
             </Grid>
           </Grid>
@@ -378,8 +529,8 @@ function Channels() {
               <TableHead>
                 <TableRow style={{ backgroundColor: "#121212" }}>
                   <TableCell></TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Vehicles Linked</TableCell>
+                  <TableCell>Channel Name</TableCell>
+                  <TableCell>Vehicles</TableCell>
                   <TableCell>Created At</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
@@ -410,26 +561,50 @@ function Channels() {
                         )}
                       </TableCell>
                       <TableCell style={{ width: 130 }}>
-                        {!!channel && <Actions channel={channel} />}
+                        {!!channel && <ChannelActions channel={channel} />}
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell colSpan={4} style={{ padding: 0 }}>
+                      <TableCell colSpan={5} style={{ padding: 0 }}>
                         <Collapse in={openRows.has(channel.id)}>
                           <Table>
-                            <TableHead>
-                              <TableRow>
-                                <TableCell>Vehicle Name</TableCell>
-                                <TableCell>Location</TableCell>
-                              </TableRow>
-                            </TableHead>
                             <TableBody>
-                              {subData.map((subRow) => (
-                                <TableRow key={subRow.id}>
-                                  <TableCell>{subRow.vehicleName}</TableCell>
-                                  <TableCell>{subRow.location}</TableCell>
-                                </TableRow>
-                              ))}
+                              {flattenedVehicleData.map((subRow) => {
+                                const specificVehicle = allVehicleData.filter(
+                                  (vehicle) => vehicle?.id === subRow?.id
+                                );
+
+                                const v =
+                                  specificVehicle[0] as unknown as Vehicle;
+
+                                if (subRow?.channelId != channel.id) {
+                                  return null; // Skip rendering this row
+                                }
+
+                                return (
+                                  <TableRow key={subRow.id}>
+                                    <TableCell
+                                      style={{ width: 175 }}
+                                    ></TableCell>
+                                    <TableCell
+                                      style={{ width: 175 }}
+                                    ></TableCell>
+                                    <TableCell>{subRow.name}</TableCell>
+                                    <TableCell style={{ width: 200 }}>
+                                      {new Date(
+                                        subRow.createdAt || ""
+                                      ).toLocaleDateString("en-GB", {
+                                        day: "2-digit",
+                                        month: "2-digit",
+                                        year: "numeric",
+                                      })}
+                                    </TableCell>
+                                    <TableCell style={{ width: 130 }}>
+                                      {!!v && <VehicleActions vehicle={v} />}
+                                    </TableCell>
+                                  </TableRow>
+                                );
+                              })}
                             </TableBody>
                           </Table>
                         </Collapse>
@@ -446,4 +621,6 @@ function Channels() {
   );
 }
 
-export default withPageRequiredAuth(Channels, { roles: [RoleEnum.ADMIN] });
+export default withPageRequiredAuth(VehiclesManagement, {
+  roles: [RoleEnum.ADMIN],
+});

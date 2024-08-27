@@ -184,7 +184,7 @@ function FormEditVehicle() {
                   variant="contained"
                   color="inherit"
                   LinkComponent={Link}
-                  href="/admin-panel/vehicles"
+                  href="/admin-panel/vehicles-manager"
                 >
                   {t("admin-panel-vehicles-edit:actions.cancel")}
                 </Button>

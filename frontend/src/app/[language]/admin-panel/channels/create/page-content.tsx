@@ -87,7 +87,7 @@ function FormCreateChannel() {
       enqueueSnackbar(t("admin-panel-channels-create:alerts.channel.success"), {
         variant: "success",
       });
-      router.push("/admin-panel/channels");
+      router.push("/admin-panel/vehicles-manager");
     }
   });
 
@@ -117,7 +117,7 @@ function FormCreateChannel() {
                   variant="contained"
                   color="inherit"
                   LinkComponent={Link}
-                  href="/admin-panel/channels"
+                  href="/admin-panel/vehicles-manager"
                 >
                   {t("admin-panel-channels-create:actions.cancel")}
                 </Button>

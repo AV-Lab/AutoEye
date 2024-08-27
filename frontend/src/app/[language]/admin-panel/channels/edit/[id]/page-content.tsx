@@ -139,7 +139,7 @@ function FormEditChannel() {
                   variant="contained"
                   color="inherit"
                   LinkComponent={Link}
-                  href="/admin-panel/channels"
+                  href="/admin-panel/vehicles-manager"
                 >
                   {t("admin-panel-channels-edit:actions.cancel")}
                 </Button>

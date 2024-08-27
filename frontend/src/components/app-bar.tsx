@@ -133,22 +133,13 @@ function ResponsiveAppBar() {
                     key="channels"
                     onClick={handleCloseNavMenu}
                     component={Link}
-                    href="/admin-panel/channels"
+                    href="/admin-panel/vehicles-manager"
                   >
                     <Typography textAlign="center">
-                      {t("common:navigation.channels")}
+                      {t("common:navigation.vehiclesManagement")}
                     </Typography>
                   </MenuItem>,
-                  <MenuItem
-                    key="vehicles"
-                    onClick={handleCloseNavMenu}
-                    component={Link}
-                    href="/admin-panel/vehicles"
-                  >
-                    <Typography textAlign="center">
-                      {t("common:navigation.vehicles")}
-                    </Typography>
-                  </MenuItem>,
+
                   // mobile-menu-items
                 ]}
               {isLoaded &&
@@ -242,23 +233,9 @@ function ResponsiveAppBar() {
                         position: "relative",
                       }}
                       component={Link}
-                      href="/admin-panel/channels"
+                      href="/admin-panel/vehicles-manager"
                     >
-                      {t("common:navigation.channels")}
-                    </Button>
-                    <VerticalLine />
-                    <Button
-                      onClick={handleCloseNavMenu}
-                      sx={{
-                        my: 2,
-                        color: "white",
-                        display: "block",
-                        position: "relative",
-                      }}
-                      component={Link}
-                      href="/admin-panel/vehicles"
-                    >
-                      {t("common:navigation.vehicles")}
+                      {t("common:navigation.vehiclesManagement")}
                     </Button>
                   </>
                 )}

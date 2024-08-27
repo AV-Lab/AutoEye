@@ -1,5 +1,5 @@
 {
-    "title": "Vehicles Management",
+    "title": "Vehicles Manager",
     "table": {
       "column1": "ID",
       "column2": "Name",
@@ -10,7 +10,8 @@
       "add": "Add Vehicle",
       "edit": "Edit",
       "delete": "Delete",
-      "create": "Create Vehicle"
+      "createC": "Create Channel",
+      "createV": "Create Vehicle"
     },
     "confirm": {
       "delete": {

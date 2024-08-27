@@ -111,7 +111,7 @@ function FormCreateVehicle() {
       enqueueSnackbar(t("admin-panel-vehicles-create:alerts.vehicle.success"), {
         variant: "success",
       });
-      router.push("/admin-panel/vehicles");
+      router.push("/admin-panel/vehicles-manager");
     }
   });
 
@@ -158,7 +158,7 @@ function FormCreateVehicle() {
                   variant="contained"
                   color="inherit"
                   LinkComponent={Link}
-                  href="/admin-panel/vehicles"
+                  href="/admin-panel/vehicles-manager"
                 >
                   {t("admin-panel-vehicles-create:actions.cancel")}
                 </Button>
